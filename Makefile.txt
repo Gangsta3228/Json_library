@@ -1,0 +1,16 @@
+.PHONY: all venv install test
+
+all: venv install test
+
+venv:
+	python3 -m venv venv
+	. venv/Scripts/activate && pip install -r requirements.txt
+
+install: venv
+	. venv/Scripts/activate && python3 setup.py install
+
+test: | make
+	. venv/Scripts/activate && python3 -m unittest discover -s tests
+
+make:
+	@make
